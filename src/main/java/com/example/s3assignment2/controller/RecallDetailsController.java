@@ -80,14 +80,18 @@ public class RecallDetailsController implements InitializeFDARecall {
     @FXML
     private Label voluntaryMandatedLabel;
 
-
-
     @Override
     public void loadFDARecallDetails(String recallNumber) throws IOException, InterruptedException {
         FdaFoodRecall fdaFoodRecall = null;
-        fdaFoodRecall = ApiUtility.getRecallDetailsByRecallNumber(recallNumber);
-        System.out.println(fdaFoodRecall.toString());
-        codeInfoLabel.setText(fdaFoodRecall.getCode_info());
+        try {
+            fdaFoodRecall = ApiUtility.getRecallDetailsByRecallNumber(recallNumber);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+//        System.out.println(fdaFoodRecall);
+        assert fdaFoodRecall != null;
+        codeInfoLabel.setText(fdaFoodRecall.getMore_code_info());
         reportDateLabel.setText(fdaFoodRecall.getReport_date());
         statusLabel.setText(fdaFoodRecall.getStatus());
         centerClassificationDateLabel.setText(fdaFoodRecall.getCenter_classification_date());
@@ -113,7 +117,12 @@ public class RecallDetailsController implements InitializeFDARecall {
     }
 
     @FXML
-    void onBackView(ActionEvent event) throws IOException, InterruptedException {
-        SceneChanger.changeScenes(event, "search-view.fxml");
+    private void backToHome(ActionEvent event) {
+        try {
+            SceneChanger.changeScene(event, "search-view.fxml");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
 }

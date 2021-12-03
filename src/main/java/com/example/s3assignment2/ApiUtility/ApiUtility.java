@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 
 public class ApiUtility {
     /**
@@ -46,17 +47,18 @@ public class ApiUtility {
         return response1;
     }
 
-    public static FdaFoodRecall getRecallDetailsByRecallNumber(String recallNumber) throws IOException, InterruptedException {
-    //    recallNumber = recallNumber.trim().replace(" ", "%20");
-        String uri = "https://api.fda.gov/food/enforcement.json?search=recall_number:" + recallNumber;
-
+    public static FdaFoodRecall getRecallDetailsByRecallNumber(String city) throws IOException, InterruptedException {
+        city = city.trim().replace(" ", "%20");
+        String uri = "https://api.fda.gov/food/enforcement.json?search=city:" + city;
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder().uri(URI.create(uri)).build();
 
-        //this approach stores the API response to a String and then creates objects
         HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-      //  System.out.println(response.body());
+
         Gson gson = new Gson();
-        return gson.fromJson(response.body(), FdaFoodRecall.class);
+        ApiResponse apiResponse;
+        apiResponse =  gson.fromJson(response.body(), ApiResponse.class);
+        ArrayList<FdaFoodRecall> fdaFoodRecalls = apiResponse.getResults();
+        return fdaFoodRecalls.get(0);
     }
 }

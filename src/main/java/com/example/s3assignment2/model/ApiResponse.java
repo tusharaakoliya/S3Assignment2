@@ -2,19 +2,22 @@ package com.example.s3assignment2.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class ApiResponse {
 
     @SerializedName("meta")
     private Meta meta;
 
     @SerializedName("results")
-    private FdaFoodRecall[] results;
+    private ArrayList<FdaFoodRecall> results;
 
-    public FdaFoodRecall[] getResults() {
+
+    public ArrayList<FdaFoodRecall> getResults() {
         return results;
     }
 
-    public void setResults(FdaFoodRecall[] results) {
+    public void setResults(ArrayList<FdaFoodRecall> results) {
         this.results = results;
     }
 

@@ -186,7 +186,7 @@ public class FdaFoodRecall {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s", product_description, product_quantity, status);
+        return String.format("%s %s %s %s", product_description, product_quantity, status, recall_number);
     }
 
 
