@@ -17,8 +17,6 @@ import java.util.ResourceBundle;
 public class SearchViewController implements Initializable {
 
     @FXML
-    private TextField searchTextField;
-    @FXML
     private ListView<FdaFoodRecall> initialMovieDataListView;
 
     @FXML
@@ -37,7 +35,7 @@ public class SearchViewController implements Initializable {
         errMsgLabel.setVisible(false);
         //configure the spinner
         SpinnerValueFactory<Integer> gradeFactory =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 75);
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 15);
         rowSpinner.setValueFactory(gradeFactory);
         rowSpinner.setEditable(true);
          spinnerEditor = rowSpinner.getEditor();
