@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.control.Spinner?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../../../styles.css" xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.s3assignment2.controller.SearchViewController">
@@ -24,6 +26,7 @@
                 <Label text="Total FDA Recall"/>
                 <TextField fx:id="searchTextField" prefHeight="40.0" prefWidth="323.0"
                            promptText="Enter Recall Numbers Want To See"/>
+                <Spinner fx:id="rowSpinner" prefHeight="39.0" prefWidth="135.0" />
                 <Button mnemonicParsing="false" onAction="#getSearchResults" text="Search"/>
             </HBox>
         </top>

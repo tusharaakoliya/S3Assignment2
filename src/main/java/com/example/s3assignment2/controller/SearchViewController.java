@@ -7,9 +7,9 @@ import com.example.s3assignment2.model.FdaFoodRecall;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,16 +24,43 @@ public class SearchViewController implements Initializable {
     @FXML
     private Label errMsgLabel;
 
+    @FXML
+    private Spinner<Integer> rowSpinner;
+
+    TextField spinnerEditor;
+
+    public SearchViewController() {
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         errMsgLabel.setVisible(false);
+        //configure the spinner
+        SpinnerValueFactory<Integer> gradeFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 75);
+        rowSpinner.setValueFactory(gradeFactory);
+        rowSpinner.setEditable(true);
+         spinnerEditor = rowSpinner.getEditor();
+        spinnerEditor.textProperty().addListener((observableValue, oldValue, newValue)->
+        {
+            try {
+                Integer.parseInt(newValue);
+            } catch (NumberFormatException e)
+            {
+                spinnerEditor.setText(oldValue);
+            }
+        });
+
     }
 
     @FXML
     private void getSearchResults() throws IOException, InterruptedException {
+
+
+
         errMsgLabel.setVisible(false);
         initialMovieDataListView.getItems().clear();
-        ApiResponse apiResponse = ApiUtility.getRecallDetailsFromFDA(searchTextField.getText());
+        ApiResponse apiResponse = ApiUtility.getRecallDetailsFromFDA(String.valueOf(spinnerEditor.getText()));
         if (apiResponse != null) {
             initialMovieDataListView.getItems().addAll(apiResponse.getResults());
         }
