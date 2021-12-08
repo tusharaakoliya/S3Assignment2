@@ -9,6 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+
+import javafx.scene.text.*;
 
 import java.io.IOException;
 
@@ -80,8 +83,13 @@ public class RecallDetailsController implements InitializeFDARecall {
     @FXML
     private Label voluntaryMandatedLabel;
 
+    @FXML
+    private GridPane detailsGridpane;
+
     @Override
     public void loadFDARecallDetails(String recallNumber) throws IOException, InterruptedException {
+
+
         FdaFoodRecall fdaFoodRecall = null;
         try {
             fdaFoodRecall = ApiUtility.getRecallDetailsByRecallNumber(recallNumber);
@@ -91,6 +99,7 @@ public class RecallDetailsController implements InitializeFDARecall {
 
 //        System.out.println(fdaFoodRecall);
         assert fdaFoodRecall != null;
+
         codeInfoLabel.setText(fdaFoodRecall.getMore_code_info());
         reportDateLabel.setText(fdaFoodRecall.getReport_date());
         statusLabel.setText(fdaFoodRecall.getStatus());
@@ -109,7 +118,9 @@ public class RecallDetailsController implements InitializeFDARecall {
         eventIdLabel.setText(fdaFoodRecall.getEvent_id());
         postalCodeLabel.setText(fdaFoodRecall.getPostal_code());
         recallInitiationDateLabel.setText(fdaFoodRecall.getRecall_initiation_date());
+        detailsGridpane.setColumnSpan(productDescriptionArea,2);
         productDescriptionArea.setText(fdaFoodRecall.getProduct_description());
+        detailsGridpane.setColumnSpan(reasonFroRecallArea,2);
         reasonFroRecallArea.setText(fdaFoodRecall.getReason_for_recall());
         productTypeLabel.setText(fdaFoodRecall.getProduct_type());
         countryLabel.setText(fdaFoodRecall.getCountry());
@@ -119,7 +130,7 @@ public class RecallDetailsController implements InitializeFDARecall {
     @FXML
     private void backToHome(ActionEvent event) {
         try {
-            SceneChanger.changeScene(event, "search-view.fxml");
+            SceneChanger.changeScene(event, "search-view.fxml", "Food Recall Details - Assignment 2");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

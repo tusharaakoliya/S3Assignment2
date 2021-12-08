@@ -3,13 +3,27 @@
     -fx-background-color: linear-gradient(from 400px 400px to 800px 800px, #58a13b,#b6c487);
     -fx-font-size: 14pt;
 }
-
+.header {
+    -fx-text-alignment: center;
+    -fx-font-size: 35px;
+    -fx-font-family: "Times New Roman" ;
+}
 .label
 {
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: black;
+    -fx-wrap-text: true;
+}
+
+#errorLabel {
+    -fx-text-fill: red;
 }
 
 #header
 {
     -fx-font-size: 30pt;
+}
+
+.button {
+    -fx-border-color: black;
+    -fx-background-color: #ffffff;
 }

@@ -1,5 +1,12 @@
 package com.example.s3assignment2.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Date;
+
 public class FdaFoodRecall {
 
     private String code_info, product_description, product_quantity, reason_for_recall,
@@ -97,7 +104,11 @@ public class FdaFoodRecall {
     }
 
     public String getReport_date() {
-        return report_date;
+        String strDate = report_date;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd", Locale.ENGLISH);
+        LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);
+        return date.toString();
+
     }
 
     public void setReport_date(String report_date) {
@@ -153,10 +164,14 @@ public class FdaFoodRecall {
     }
 
     public String getRecall_initiation_date() {
-        return recall_initiation_date;
+        String strDate = recall_initiation_date;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd", Locale.ENGLISH);
+        LocalDate date = LocalDate.parse(strDate, dateTimeFormatter);
+        return date.toString();
     }
 
     public void setRecall_initiation_date(String recall_initiation_date) {
+
         this.recall_initiation_date = recall_initiation_date;
     }
 

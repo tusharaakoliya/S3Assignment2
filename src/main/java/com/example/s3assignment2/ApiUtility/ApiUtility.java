@@ -9,27 +9,30 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ApiUtility {
     /**
      * This methos wil cann the OMDb api with the specified search term
      */
 
-    public static ApiResponse getRecallDetailsFromFDA(String searchLimit) throws IOException, InterruptedException {
+//    public static ApiResponse getRecallDetailsFromFDA(String searchLimit) throws IOException, InterruptedException {
+    public static ArrayList<FdaFoodRecall> getRecallDetailsFromFDA(String searchLimit) throws IOException, InterruptedException {
 
-        String uri = "https://api.fda.gov/food/enforcement.json?limit="+searchLimit;
+        String uri = "https://api.fda.gov/food/enforcement.json?sort=report_date:desc&limit="+searchLimit;
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest httpRequest = HttpRequest.newBuilder().uri(URI.create(uri)).build();
 
-
-        // this sends the result from API to a file
+//         this sends the result from API to a file
 //
 //        HttpResponse<Path> response = client.send(httpRequest, HttpResponse
 //                                                    .BodyHandlers
 //                                                    .ofFile(Paths.get("jsonData.json")));
-        //return getMovieJsonFile();
+//        return getMovieJsonFile();
 
         // this approch stores theAPi response to a string and then creates objects
         HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
@@ -44,7 +47,8 @@ public class ApiUtility {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return response1;
+
+        return response1.getResults();
     }
 
     public static FdaFoodRecall getRecallDetailsByRecallNumber(String city) throws IOException, InterruptedException {
@@ -58,6 +62,7 @@ public class ApiUtility {
         Gson gson = new Gson();
         ApiResponse apiResponse;
         apiResponse =  gson.fromJson(response.body(), ApiResponse.class);
+
         ArrayList<FdaFoodRecall> fdaFoodRecalls = apiResponse.getResults();
         return fdaFoodRecalls.get(0);
     }

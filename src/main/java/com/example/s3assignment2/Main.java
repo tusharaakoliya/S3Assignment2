@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("search-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Assignment Two");
+        stage.setTitle("Food Recall Details - Assignment 2");
         Image img  = new Image(Objects.requireNonNull(Main.class.getResource("foodsafty.png")).toExternalForm());
         stage.getIcons().add(img);
         stage.setScene(scene);
