@@ -90,6 +90,7 @@ public class SearchViewController implements Initializable {
     private void getSearchResults() throws IOException, InterruptedException {
 
         errMsgLabel.setVisible(false);
+        initialRecallDataTableView.getItems().clear();
 
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("recall_initiation_date"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("product_description"));
